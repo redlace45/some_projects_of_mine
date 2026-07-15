@@ -1,0 +1,40 @@
+from flask import Flask
+
+app = Flask(__name__)
+
+count = 0
+
+@app.route("/")
+def home():
+    global count
+
+    return f"""
+    <html>
+    <head>
+        <title>Button Clicker</title>
+    </head>
+
+    <body style="text-align:center;font-family:Arial;margin-top:100px;">
+
+        <h1>Button Clicker</h1>
+
+        <h2>Clicks: {count}</h2>
+
+        <form action="/click">
+            <button style="font-size:30px;padding:20px;">
+                CLICK ME
+            </button>
+        </form>
+
+    </body>
+    </html>
+    """
+
+@app.route("/click")
+def click():
+    global count
+    count += 1
+    return home()
+
+if __name__ == "__main__":
+    app.run(debug=True)
